@@ -23,6 +23,15 @@ export default function Messenger(props) {
   const socket = useRef()
   const location = useLocation();
 
+  useEffect(() => {
+    async function getUserNotOnline () {
+      // let res = await axios.get('/users/notOl', {
+      //   data: onlineUsers
+      // })
+      // console.log('onlineUsers', res.config.data)
+    }
+    getUserNotOnline()
+  }, [onlineUsers])
 
   useEffect(() => {
     socket.current = io("http://localhost:3001")

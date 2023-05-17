@@ -132,4 +132,14 @@ router.get("/all", async (req, res) => {
   }
 });
 
+//get user not online
+router.get("/notOl", async (req, res) => {
+  try {
+    console.log("oluser", req.body.data)
+    res.status(200).json(req.body.data);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+})
+
 module.exports = router;
