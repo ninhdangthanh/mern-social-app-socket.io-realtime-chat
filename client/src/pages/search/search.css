@@ -1,0 +1,9 @@
+.search{
+    flex:5.5;
+    padding: 0 20px
+}
+
+.searchpeople {
+    padding-top: 10px;
+    color: blue;
+}

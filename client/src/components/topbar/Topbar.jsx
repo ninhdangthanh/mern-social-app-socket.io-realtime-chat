@@ -1,11 +1,28 @@
 import "./topbar.css";
 import { Search, Person, Chat, Notifications } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useHistory } from 'react-router-dom'
 
-export default function Topbar() {
+export default function Topbar(props) {
   const { user } = useContext(AuthContext);
+  let history = useHistory();
+  const inputRef = useRef(null);
+
+  const navigateToSearchPage = () => {
+    history.push({
+      pathname: "/search",
+      state: {searchValue: inputRef.current.value},
+    });
+    window.location.href = window.location.pathname;
+
+  }
+
+  useEffect(() => {if(props.searchValue) {
+    inputRef.current.value = props.searchValue
+  }}, [props.searchValue])
+  
   return (
     <div className="topbarContainer">
       <div className="topbarLeft">
@@ -15,17 +32,18 @@ export default function Topbar() {
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
-          <Search className="searchIcon" />
+          <Search onClick={navigateToSearchPage} className="searchIcon" />
           <input
             placeholder="Search for friend, post or video"
             className="searchInput"
+            ref={inputRef}
           />
         </div>
       </div>
       <div className="topbarRight">
         <div className="topbarLinks">
           <span className="topbarLink">Homepage</span>
-          <span className="topbarLink">Timeline</span>
+          <Link  className="topbarIconItem" to="/timeline"><span className="topbarLink">Timeline</span></Link>
         </div>
         <div className="topbarIcons">
           <div className="topbarIconItem">
@@ -54,3 +72,4 @@ export default function Topbar() {
     </div>
   );
 }
+

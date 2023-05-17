@@ -1,0 +1,12 @@
+.rightbarfix {
+    position: fixed;
+    width: 20%;
+    right: 0;
+    top: 80;
+}
+
+.rightbarfixao{
+    flex: 3;
+    right: 0;
+    top: 50;
+}

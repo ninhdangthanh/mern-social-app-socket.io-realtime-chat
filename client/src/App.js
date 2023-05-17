@@ -12,6 +12,8 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
 import { ToastContainer } from "react-toastify";
+import Search from "./pages/search/Search";
+import TimeLine from "./pages/timeline/TimeLine";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -27,6 +29,10 @@ function App() {
         </Route>
         <Route path="/messenger">
           {!user ? <Redirect to="/" /> : <Messenger />}
+        </Route>
+        <Route path="/search">{!user ? <Redirect to="/" /> : <Search />}</Route>
+        <Route path="/timeline">
+          {!user ? <Redirect to="/" /> : <TimeLine />}
         </Route>
         <Route path="/profile/:username">
           <Profile />

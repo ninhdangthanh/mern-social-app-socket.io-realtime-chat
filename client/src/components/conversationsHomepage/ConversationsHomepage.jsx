@@ -1,22 +1,31 @@
 import axios from 'axios'
 import { useContext } from 'react'
 import { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext' 
 import './conversationsHomepage.css'
 
-export default function ConversationsHomepage() {
+export default function ConversationsHomepage(props) {
   const { user } = useContext(AuthContext)
   const [userFriend, setUserFriend] = useState([])
   let history = useHistory();
+  let location = useLocation();
 
   useEffect(() => {
     const getUser = async () => {
       let res = await axios.get('/users/all')
-      setUserFriend(res.data.filter(u => u._id !== user._id))
+      if(props.searchValue) {
+        setUserFriend(res.data.filter(u => {
+          return u._id !== user._id && u.username.toLowerCase().includes(props.searchValue.toLowerCase())
+        }))
+        // setUserFriend(userFriend.filter(u => u.username.includes(props.searchValue.toLowerCase())))
+      } else {
+        setUserFriend(res.data.filter(u => u._id !== user._id))
+      }
+      // console.log(userFriend);
     }
     getUser()
-  }, [])
+  }, [props.searchValue])
 
   const handleChatBox = (id) => {
     history.push({

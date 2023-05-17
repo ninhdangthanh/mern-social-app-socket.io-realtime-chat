@@ -115,8 +115,7 @@ export default function Messenger(props) {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input type="text" placeholder='Search for friends' className='chatMenuInput' />
-            <br /> <br /> <div><strong>All Users</strong></div>
+            <br />  <div><strong>All Users</strong></div>
             {conversation.map(c => {
               return <div onClick={() => setCurrentChat(c)}>
                 <Conversation conversation={c} currentUser={user} />
